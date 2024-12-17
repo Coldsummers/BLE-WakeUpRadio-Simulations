@@ -198,8 +198,10 @@ def save_power_to_csv(filename, ble_power_times, power_per_packet):
     print(f"Power consumption data saved to {filename}")
 
 # Main execution (ensure this code is executed after parsing and calculations)
-log_file_path = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample/dcbstate_log.txt'
-pcap_file_path = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample/HeartRateImplant(2).pcap'
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+log_file_path = os.path.join(base_dir, 'dcbstate_log.txt')
+pcap_file_path = os.path.join(base_dir, 'HeartRateImplant(2).pcap')
 
 log_events, BLE_times, ble_sleep_phases, ble_sleep_power_total = parse_log_file(log_file_path)
 packet_lengths = parse_pcap_file(pcap_file_path)
@@ -211,7 +213,7 @@ ble_power_times, total_power_BLE, ble_sleep_power_total, power_per_packet = calc
     log_events, packet_lengths, N_channels, t_comm, BLE_times, ble_sleep_power_total
 )
 
-csv_filename = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample/dutycycledble.csv'
+csv_filename = os.path.join(base_dir, 'dutycycledble.csv')
 save_power_to_csv(csv_filename, ble_power_times, power_per_packet)
 
 print_power_results(total_power_BLE, ble_sleep_phases, ble_sleep_power_total)
