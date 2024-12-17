@@ -34,9 +34,11 @@ def load_csv(file_path):
     return time_values, power_values
 
 # File paths for the CSV files
-always_on_wur_file = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample\alwaysonwur.csv'
-duty_cycled_wur_file = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample\dutycycledwur.csv'
-duty_cycled_ble_file = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample\dutycycledble.csv'
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+always_on_wur_file = os.path.join(base_dir, 'alwaysonwur.csv')
+duty_cycled_wur_file = os.path.join(base_dir, 'dutycycledwur.csv')
+duty_cycled_ble_file = os.path.join(base_dir, 'dutycycledble.csv')
 
 # Load data from the CSV files
 time_always_on_wur, power_always_on_wur = load_csv(always_on_wur_file)
