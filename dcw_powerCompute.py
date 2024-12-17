@@ -318,8 +318,11 @@ def save_power_to_csv(dutycycledwur1, ble_power_times, wur_power_times, power_pe
     print(f"Power consumption data saved to {dutycycledwur1}")
 
 # Main execution (ensure this code is executed after parsing and calculations)
-log_file_path = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample/state_log.txt'
-pcap_file_path = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample/HeartRateImplant.pcap'
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+log_file_path = os.path.join(base_dir, 'state_log.txt')
+pcap_file_path = os.path.join(base_dir, 'HeartRateImplant.pcap')
+
 N_channels = 7
 t_comm = 10  # Example communication time
 
@@ -330,7 +333,7 @@ ble_power_times, wur_power_times, total_power_WuR, total_power_BLE, total_ble_sl
     log_events, packet_lengths, N_channels, t_comm, WuR_times, ble_sleep_periods)
 
 # Save power consumption data to CSV
-csv_filename = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample/dutycycledwur.csv'
+csv_filename = os.path.join(base_dir, 'dutycycledwur.csv')
 save_power_to_csv(csv_filename, ble_power_times, wur_power_times, power_per_packet)
 
 # Debug the power times dictionaries
