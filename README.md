@@ -43,6 +43,8 @@ Install the Python libraries using:
 ```bash
 pip install matplotlib pandas numpy
 
+---
+
 ## **Contributors**
 
 Samuel Kodi - skodi001@st.ug.edu.gh
