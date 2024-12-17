@@ -42,7 +42,7 @@ To run the simulations and analysis scripts, the following software and librarie
 Install the Python libraries using:
 ```bash
 pip install matplotlib pandas numpy
-
+```
 ---
 
 ## **Contributors**
@@ -57,4 +57,5 @@ This project is licensed under the MIT License. See the LICENSE file for details
 For more details, refer to the associated research manuscript:
 Kodi, S., & Katsriku, F.
 "Software Simulation Analysis of Integrating a Wake-Up Radio with a Bluetooth Low Energy Heart Rate Implant Sensor."
+
 
