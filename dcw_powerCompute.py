@@ -242,10 +242,6 @@ def debug_power_times(ble_power_times, wur_power_times, power_per_packet):
     for time_sec, power in wur_power_times.items():
         print(f"Time {time_sec}s: {power:.2f} µA")
 
-    #print("\nPower Per Packet (in mA):")
-    #for time_sec, power in power_per_packet.items():
-    #    print(f"Packet Time {time_sec}s: {power:.6f} mA")
-
 # Function to plot BLE and WuR power consumption together
 def plot_power_consumption(ble_power_times, wur_power_times, power_per_packet):
     """
@@ -268,15 +264,6 @@ def plot_power_consumption(ble_power_times, wur_power_times, power_per_packet):
     ax1.set_ylabel('Power (mA)')
     ax1.set_ylim(0, max(ble_powers) * 1.2)  # Adjust based on BLE power range
     ax1.grid(True)
-
-    # Annotate specific BLE packets with power consumption values
-    #for time_sec, power in power_per_packet.items():
-     #   if power > 0:
-      #      ax1.annotate(f"{power:.6f} mA",
-       #                  xy=(time_sec, power), xycoords='data',
-        #                 xytext=(0, 10), textcoords='offset points',
-         #                arrowprops=dict(arrowstyle="->", lw=0.5),
-          #               fontsize=10, color='darkred')
 
     # Plot WuR power consumption
     ax2.plot(wur_times, wur_powers, marker='x', linestyle='-', color='r', label="WuR Power")
