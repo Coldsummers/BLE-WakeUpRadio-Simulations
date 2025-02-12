@@ -10,7 +10,7 @@ POWER_PARAMS = {
     'WuR_sleep': 0.4e-6,   # WuR sleep power
     'transmit': 3.4e-3,    # BLE transmit power
     'receive': 3.7e-3,     # BLE receive power
-    'BLE_idle': 1.5e-6     # BLE idle/sleep power
+    'BLE_idle': 1.8e-6     # BLE idle/sleep power
 }
 
 # Define a modified packet mapping with improved regex support for event descriptions
@@ -214,8 +214,6 @@ def calculate_power(log_events, packet_lengths, N_channels, t_comm, WuR_times, b
 
     return power_times, WuR_power_times, total_power_WuR, total_power_BLE, total_ble_sleep_power, power_per_packet
 
-
-# Function to print power results
 def print_power_results(total_power_WuR, total_power_BLE, total_ble_sleep_power):
     """
     Print the total power consumption for WuR, BLE, and BLE Sleep in appropriate units.
@@ -229,7 +227,6 @@ def print_power_results(total_power_WuR, total_power_BLE, total_ble_sleep_power)
     # BLE Sleep Power in microamperes (µA)
     print(f'Total Power Consumption (BLE Sleep): {total_ble_sleep_power * 1e6:.2f} µA')
 
-# Function to print and debug power times dictionaries
 def debug_power_times(ble_power_times, wur_power_times, power_per_packet):
     """
     Debugging function to print out power times and check for inconsistencies.
@@ -241,41 +238,6 @@ def debug_power_times(ble_power_times, wur_power_times, power_per_packet):
     print("\nWuR Power Times (in µA):")
     for time_sec, power in wur_power_times.items():
         print(f"Time {time_sec}s: {power:.2f} µA")
-
-# Function to plot BLE and WuR power consumption together
-def plot_power_consumption(ble_power_times, wur_power_times, power_per_packet):
-    """
-    Plots BLE and WuR power consumption on the same timeline with annotations for packets.
-    """
-    # Extract times and corresponding power values for BLE and WuR
-    ble_times = sorted(ble_power_times.keys())
-    ble_powers = [ble_power_times.get(t, 0) for t in ble_times]
-    
-    wur_times = sorted(wur_power_times.keys())
-    wur_powers = [wur_power_times.get(t, 0) for t in wur_times]
-
-    # Create subplots: one for BLE power and another for WuR power
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10))
-
-    # Plot BLE power consumption
-    ax1.plot(ble_times, ble_powers, marker='o', linestyle='-', color='b', label="BLE Power")
-    ax1.set_title('BLE Power Consumption Over Time')
-    ax1.set_xlabel('Time (s)')
-    ax1.set_ylabel('Power (mA)')
-    ax1.set_ylim(0, max(ble_powers) * 1.2)  # Adjust based on BLE power range
-    ax1.grid(True)
-
-    # Plot WuR power consumption
-    ax2.plot(wur_times, wur_powers, marker='x', linestyle='-', color='r', label="WuR Power")
-    ax2.set_title('WuR Power Consumption Over Time')
-    ax2.set_xlabel('Time (s)')
-    ax2.set_ylabel('Power (µA)')
-    ax2.set_ylim(0, max(wur_powers) * 1.2)  # Adjust based on WuR power range
-    ax2.grid(True)
-
-    # Final adjustments to layout and show the plot
-    plt.tight_layout()
-    plt.show()
 
 def save_power_to_csv(dutycycledwur1, ble_power_times, wur_power_times, power_per_packet):
     """
@@ -304,14 +266,13 @@ def save_power_to_csv(dutycycledwur1, ble_power_times, wur_power_times, power_pe
 
     print(f"Power consumption data saved to {dutycycledwur1}")
 
-# Main execution (ensure this code is executed after parsing and calculations)
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 log_file_path = os.path.join(base_dir, 'state_log.txt')
 pcap_file_path = os.path.join(base_dir, 'HeartRateImplant.pcap')
 
 N_channels = 7
-t_comm = 10  # Example communication time
+t_comm = 10 
 
 log_events, WuR_times, BLE_times, ble_sleep_periods = parse_log_file(log_file_path)
 packet_lengths = parse_pcap_file(pcap_file_path)
@@ -328,10 +289,3 @@ debug_power_times(ble_power_times, wur_power_times, power_per_packet)
 
 # Print the power results
 print_power_results(total_power_WuR, total_power_BLE, total_ble_sleep_power)
-
-# Plot the integrated BLE and WuR power consumption graphs
-plot_power_consumption(ble_power_times, wur_power_times, power_per_packet)
-
-# Save power consumption data to CSV
-csv_filename = r'C:\Users\User\OneDrive\Documents\MATLAB\Examples\R2019b\bluetooth\BLEHeartRateExample/dutycycledwur.csv'
-save_power_to_csv(csv_filename, ble_power_times, wur_power_times, power_per_packet)
