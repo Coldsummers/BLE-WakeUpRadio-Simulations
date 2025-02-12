@@ -10,7 +10,7 @@ cache = struct('services', [], 'characteristics', [], 'descriptors', []);
 isCacheInitialized = false; % Keeps track of whether cache is initialized
 
 % Emergency heart rate notification threshold
-heartRateThreshold = 140;
+heartRateThreshold = 100;
 
 % Seed the random number generator based on the current time
 rng('shuffle');
