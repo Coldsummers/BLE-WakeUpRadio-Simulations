@@ -10,7 +10,7 @@ cache = struct('services', [], 'characteristics', [], 'descriptors', []);
 isCacheInitialized = false; % Keeps track of whether cache is initialized
 
 % Emergency heart rate notification threshold
-heartRateThreshold = 140;
+heartRateThreshold = 100;
 
 % Seed the random number generator based on the current time
 rng('shuffle');
@@ -26,7 +26,7 @@ count = 1;
 logFile = fopen('aowstate_log.txt', 'w');
 
 % Simulation time limit (in seconds)
-simulationTimeLimit = 20 * 60; % 10 minutes in seconds
+simulationTimeLimit = 20 * 60; % 20 minutes in seconds
 
 % Start the simulation time tracking
 simulationStartTime = tic; % Start a timer to track the simulation duration
@@ -57,8 +57,8 @@ while true
     % Generate a random number between 0 and 1 for detection chance
     detectionChance = rand();
     
-    % Random threshold for detection chance between 0.9 and 1
-    threshold = 0.83 + (1 - 0.83) * rand();
+    % Random threshold for detection chance 
+    threshold = 0.9 + (1 - 0.9) * rand();
     
     %currentTime = currentTime + 1;
     %pause(1);
