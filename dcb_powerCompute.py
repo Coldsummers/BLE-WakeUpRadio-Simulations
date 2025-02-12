@@ -183,8 +183,8 @@ pcap_file_path = os.path.join(base_dir, 'HeartRateImplant(2).pcap')
 log_events, BLE_times, ble_sleep_phases, ble_sleep_power_total = parse_log_file(log_file_path)
 packet_lengths = parse_pcap_file(pcap_file_path)
 
-t_comm = 10  # Communication time window (assumed value)
-N_channels = 7  # BLE default
+t_comm = 10
+N_channels = 7
 
 ble_power_times, total_power_BLE, ble_sleep_power_total, power_per_packet = calculate_power(
     log_events, packet_lengths, N_channels, t_comm, BLE_times, ble_sleep_power_total
