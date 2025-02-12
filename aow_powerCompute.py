@@ -218,45 +218,6 @@ def debug_power_times(ble_power_times, wur_power_times, power_per_packet):
     for time_sec, power in ble_power_times.items():
         print(f"Time {time_sec}s: {power:.6f} mA")
 
-    #print("\nWuR Power Times (in µA):")
-    #for time_sec, power in wur_power_times.items():
-    #    print(f"Time {time_sec}s: {power:.2f} µA")
-
-# Function to plot BLE and WuR power consumption together
-def plot_power_consumption(ble_power_times, wur_power_times, power_per_packet):
-    """
-    Plots BLE and WuR power consumption on the same timeline with annotations for packets.
-    """
-    # Extract times and corresponding power values for BLE and WuR
-    ble_times = sorted(ble_power_times.keys())
-    ble_powers = [ble_power_times.get(t, 0) for t in ble_times]
-
-    wur_times = sorted(wur_power_times.keys())
-    wur_powers = [wur_power_times.get(t, 0) for t in wur_times]
-
-    # Create subplots: one for BLE power and another for WuR power
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10))
-
-    # Plot BLE power consumption
-    ax1.plot(ble_times, ble_powers, marker='o', linestyle='-', color='b', label="BLE Power")
-    ax1.set_title('BLE Power Consumption Over Time')
-    ax1.set_xlabel('Time (s)')
-    ax1.set_ylabel('Power (mA)')
-    ax1.set_ylim(0, max(ble_powers) * 1.2)  # Adjust based on BLE power range
-    ax1.grid(True)
-
-    # Plot WuR power consumption
-    ax2.plot(wur_times, wur_powers, marker='x', linestyle='-', color='r', label="WuR Power")
-    ax2.set_title('WuR Power Consumption Over Time')
-    ax2.set_xlabel('Time (s)')
-    ax2.set_ylabel('Power (µA)')
-    ax2.set_ylim(0, max(wur_powers) * 1.2)  # Adjust based on WuR power range
-    ax2.grid(True)
-
-    # Final adjustments to layout and show the plot
-    plt.tight_layout()
-    plt.show()
-
 def save_power_to_csv(filename, ble_power_times, wur_power_times, power_per_packet):
     with open(filename, 'w', newline='') as csvfile:
         fieldnames = ['Time (s)', 'BLE Power (mA)', 'WuR Power (µA)']
@@ -274,7 +235,6 @@ def save_power_to_csv(filename, ble_power_times, wur_power_times, power_per_pack
 
     print(f"Power consumption data saved to {filename}")
 
-# Main execution (ensure this code is executed after parsing and calculations)
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 log_file_path = os.path.join(base_dir, 'aowstate_log.txt')
@@ -297,5 +257,3 @@ debug_power_times(ble_power_times, wur_power_times, power_per_packet)
 # Print the power results
 print_power_results(total_power_WuR, total_power_BLE, total_ble_sleep_power)
 
-# Plot the integrated BLE and WuR power consumption graphs
-plot_power_consumption(ble_power_times, wur_power_times, power_per_packet)
