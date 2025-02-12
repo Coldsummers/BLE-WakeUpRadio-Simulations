@@ -10,13 +10,13 @@ cache = struct('services', [], 'characteristics', [], 'descriptors', []);
 isCacheInitialized = false; % Keeps track of whether cache is initialized
 
 % Emergency heart rate notification threshold
-heartRateThreshold = 140;
+heartRateThreshold = 100;
 
 % Seed the random number generator based on the current time
 rng('shuffle');
 
 % Wake-up interval (in seconds)
-wakeUpInterval = 5;
+wakeUpInterval = 10;
 
 % Initialize the simulation time
 currentTime = 0;
@@ -75,7 +75,7 @@ while true
             detectionChance = rand();
             
             % Random threshold for detection chance between 0.9 and 1
-            threshold = 0.83 + (1 - 0.83) * rand();
+            threshold = 0.9 + (1 - 0.9) * rand();
             
             % Determine if the WuR device wakes up based on detection chance or reconnection
             if detectionChance > threshold || isReconnectionRequired
