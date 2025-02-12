@@ -10,7 +10,7 @@ POWER_PARAMS = {
     'WuR_sleep': 0.4e-6,   # WuR sleep power
     'transmit': 3.4e-3,    # BLE transmit power
     'receive': 3.7e-3,     # BLE receive power
-    'BLE_idle': 1.5e-6     # BLE idle/sleep power
+    'BLE_idle': 1.8e-6     # BLE idle/sleep power
 }
 
 V_OP = 3.0  # Operating voltage (3V for coin battery)
