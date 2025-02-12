@@ -7,7 +7,7 @@ import csv
 POWER_PARAMS = {
     'transmit': 3.4e-3,    # BLE transmit power
     'receive': 3.7e-3,     # BLE receive power
-    'BLE_idle': 1.5e-6     # BLE idle/sleep power (1.5 µA)
+    'BLE_idle': 1.8e-6     # BLE idle/sleep power (1.5 µA)
 }
 
 V_OP = 3.0  # Coin battery voltage (Volts)
@@ -157,28 +157,6 @@ def debug_power_times(ble_power_times, power_per_packet):
     for time_sec, power in power_per_packet.items():
         print(f"Packet Time {time_sec}s: {power:.6f} mA")
 
-def plot_power_consumption(ble_power_times, power_per_packet):
-    """
-    Plots BLE power consumption on the timeline with annotations for packets.
-    """
-    # Extract times and corresponding power values for BLE
-    ble_times = sorted(ble_power_times.keys())
-    ble_powers = [ble_power_times.get(t, 0) for t in ble_times]
-
-    # Create plot for BLE power consumption
-    plt.figure(figsize=(10, 5))
-
-    # Plot BLE power consumption
-    plt.plot(ble_times, ble_powers, marker='o', linestyle='-', color='b', label="BLE Power")
-    plt.title('BLE Power Consumption Over Time')
-    plt.xlabel('Time (s)')
-    plt.ylabel('Power (mA)')
-    plt.ylim(0, max(ble_powers) * 1.2)  # Adjust based on BLE power range
-    plt.grid(True)
-    
-    plt.tight_layout()
-    plt.show()
-
 def save_power_to_csv(filename, ble_power_times, power_per_packet):
     """
     Save BLE power consumption data into CSV format.
@@ -197,7 +175,6 @@ def save_power_to_csv(filename, ble_power_times, power_per_packet):
 
     print(f"Power consumption data saved to {filename}")
 
-# Main execution (ensure this code is executed after parsing and calculations)
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 log_file_path = os.path.join(base_dir, 'dcbstate_log.txt')
@@ -218,4 +195,3 @@ save_power_to_csv(csv_filename, ble_power_times, power_per_packet)
 
 print_power_results(total_power_BLE, ble_sleep_phases, ble_sleep_power_total)
 debug_power_times(ble_power_times, power_per_packet)
-plot_power_consumption(ble_power_times, power_per_packet)
